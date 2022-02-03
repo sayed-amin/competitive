@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-#define SIZE 20010
+#define SIZE 200010
 vector<int> G[SIZE];
 vector<long long> dist;
 vector<long long> pre;
@@ -23,10 +23,12 @@ void dfs(int i, int p, int d)
 }
 int main()
 {
-   fastio();
-   ios_base::sync_with_stdio(0);
-   cin.tie(0);
-   cout.tie(0);
+
+   cin.tie(NULL)->sync_with_stdio(0);
+#ifndef ONLINE_JUDGE
+   freopen("input.txt", "r", stdin);
+   freopen("output.txt", "w", stdout);
+#endif
    int t;
    cin >> t;
    while (t--)
