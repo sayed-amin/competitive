@@ -1,0 +1,1 @@
+{"name":"Local: special_string","url":"/Users/amin/Documents/code chef/starter/starters24/special_string.cpp","tests":[{"id":1645266197386,"input":"3\n9\nababbdced\n4\n7\nbdcgehx\n5\n6\nacbcbd\n3\n\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/amin/Documents/code chef/starter/starters24/special_string.cpp","group":"local","local":true}

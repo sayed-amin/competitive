@@ -1,0 +1,1 @@
+{"name":"Local: contro_pollution","url":"/Users/amin/Documents/code chef/starter/starters26/contro_pollution.cpp","tests":[{"id":1645028567383,"input":"3\n9 40 8\n15 20 20\n105 80 10","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/amin/Documents/code chef/starter/starters26/contro_pollution.cpp","group":"local","local":true}
