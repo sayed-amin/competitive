@@ -1,11 +1,20 @@
 #include <iostream>
+
 using namespace std;
+
 int main()
 {
+
+#ifndef ONLINE_JUDGE
+   freopen("/Users/amin/Documents/template/input.txt", "r", stdin);
+   freopen("/Users/amin/Documents/template/output.txt", "w", stdout);
+#endif
+   int m;
    int t;
    cin >> t;
    while (t--)
    {
+
       int n;
       cin >> n;
       int a[n];

@@ -1,1 +1,0 @@
-{"name":"Local: careless_chef","url":"/Users/amin/Documents/code chef/starter/starters26/careless_chef.cpp","tests":[{"id":1645027289132,"input":"3\n1\n1 1\n2\n16 2 2022 2001\n2\n2 4 -2 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/amin/Documents/code chef/starter/starters26/careless_chef.cpp","group":"local","local":true}

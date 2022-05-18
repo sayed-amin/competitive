@@ -2,6 +2,23 @@
    "files.associations": {
       "ostream": "cpp",
       "vector": "cpp",
-      "iostream": "cpp"
-   }
+      "iostream": "cpp",
+      "__config": "cpp",
+      "ios": "cpp",
+      "__tree": "cpp",
+      "bitset": "cpp",
+      "set": "cpp",
+      "random": "cpp",
+      "string": "cpp",
+      "utility": "cpp",
+      "regex": "cpp",
+      "memory": "cpp",
+      "map": "cpp"
+   },
+   "cph.language.c.Command": "clang",
+   "cph.general.defaultLanguage": "cpp",
+   "cph.general.firstTime": false,
+   "cph.language.cpp.Command": "g++",
+   "cph.language.cpp.SubmissionCompiler": "Clang++17 Diagnostics",
+   "code-runner.clearPreviousOutput": true
 }

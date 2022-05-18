@@ -4,8 +4,12 @@
 using namespace std;
 int main()
 {
+#ifndef ONLINE_JUDGE
+       freopen("/Users/amin/Documents/template/input.txt", "r", stdin);
+   freopen("/Users/amin/Documents/template/output.txt", "w", stdout);
+#endif
    ios_base::sync_with_stdio(0);
-   
+
    int t;
    cin >> t;
    while (t--)
@@ -50,7 +54,7 @@ int main()
       }
       for (auto i : ty[k])
       {
-         
+
          cout << i << " ";
       }
 
