@@ -35,6 +35,10 @@ void solve()
     {
         cout << c[i] << endl;
     }
+
+    for (int i = 0; i < n; i++)
+    {
+    }
 }
 int32_t main()
 {
