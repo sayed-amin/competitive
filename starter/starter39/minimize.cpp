@@ -1,44 +1,57 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-int n, k;
-vector<vector<int> > g;
+
 vector<vector<pair<int, int> > > g1;
 vector<int> c;
-void dfs(int v, int par = -1)
+int dfs(int v, int par = -1, int blocked = false)
 {
-    c[v] += 1;
-    for (auto child : g[v])
+    int node = 1;
+    for (auto child : g1[v])
     {
-        if (par == child)
+        if (par == child.first)
             continue;
-        dfs(child, v);
-        c[v] += c[child];
+        int x = dfs(child.first, v, (blocked || child.second));
+        node += x;
+        if (child.second && !blocked)
+            c.push_back(x);
     }
+    return node;
 }
 void solve()
 {
+    int n, k;
     cin >> n >> k;
-    g.resize(n + 1);
-    c.assign(n + 1, 0);
+    g1.clear();
+    c.clear();
+    g1.resize(n + 1);
     for (int i = 1; i <= n - 1; i++)
     {
         int u, v, w;
         cin >> u >> v >> w;
-        // g1[v].push_back({u, w});
-        // g1[u].push_back({v, w});
-        g[v].push_back(u);
-        g[u].push_back(v);
+        g1[v].push_back({u, w});
+        g1[u].push_back({v, w});
     }
     dfs(1);
-    for (int i = 1; i <= n; i++)
-    {
-        cout << c[i] << endl;
-    }
 
-    for (int i = 0; i < n; i++)
+    sort(c.begin(), c.end());
+    reverse(c.begin(), c.end());
+    int infected = n;
+    if (infected <= k)
     {
+        cout << 0 << endl;
+        return;
     }
+    for (auto i = 0; i < c.size(); i++)
+    {
+        infected -= c[i];
+        if (infected <= k)
+        {
+            cout << i + 1 << endl;
+            return;
+        }
+    }
+    cout << -1 << endl;
 }
 int32_t main()
 {
