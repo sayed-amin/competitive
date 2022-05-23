@@ -7,32 +7,45 @@ void solve()
     cin >> n;
     string s;
     cin >> s;
-    if (n & 1)
+    int count = 0;
+    int temp = n - 1;
+    // if (n & 1)
+    // {
+    //     int mid = floor(n / 2.0);
+    //     int temp = n - 1;
+    //     int count = 0;
+    //     for (int i = 0; i <= mid; i++)
+    //     {
+    //         if (s[i] != s[temp])
+    //             count++;
+    //         temp--;
+    //     }
+    //     cout << count << endl;
+    // }
+    // else
+    // {
+    //     int mid = floor(n / 2.0);
+    //     int temp = n - 1;
+    //     int count = 0;
+    //     for (int i = 0; i <= mid; i++)
+    //     {
+    //         if (s[i] != s[temp])
+    //             count++;
+    //         temp--;
+    //     }
+    //     cout << count << endl;
+    // }
+    for (int i = 0; i < n / 2; i++)
     {
-        int mid = floor(n / 2.0);
-        int temp = n - 1;
-        int count = 0;
-        for (int i = 0; i <= mid; i++)
-        {
-            if (s[i] != s[temp])
-                count++;
-            temp--;
-        }
-        cout << count << endl;
+        if (s[i] != s[n - i - 1])
+            count++;
     }
+    int ans;
+    if (count & 1)
+        ans = count / 2 + 1;
     else
-    {
-        int mid = floor(n / 2.0);
-        int temp = n - 1;
-        int count = 0;
-        for (int i = 0; i <= mid; i++)
-        {
-            if (s[i] != s[temp])
-                count++;
-            temp--;
-        }
-        cout << count << endl;
-    }
+        ans = count / 2;
+    cout << ans << endl;
 }
 int32_t main()
 {

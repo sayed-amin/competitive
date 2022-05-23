@@ -1,118 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define INT_SIZE 32
+#define INT_SIZE 32;
 vector<vector<int> > g;
 vector<int> v1;
 vector<vector<int> > subtree;
-struct TrieNode
-{
-    int value; // used in leaf node
-    TrieNode *Child[2];
-};
-
-// Utility function to create a new Trie node
-TrieNode *getNode()
-{
-    TrieNode *newNode = new TrieNode;
-    newNode->value = 0;
-    newNode->Child[0] = newNode->Child[1] = NULL;
-    return newNode;
-}
-
-// utility function insert new key in trie
-void insert(TrieNode *root, int key)
-{
-    TrieNode *temp = root;
-
-    // start from the most significant bit, insert all
-    // bit of key one-by-one into trie
-    for (int i = INT_SIZE - 1; i >= 0; i--)
-    {
-        // Find current bit in given prefix
-        bool current_bit = (key & (1 << i));
-
-        // Add a new Node into trie
-        if (temp->Child[current_bit] == NULL)
-            temp->Child[current_bit] = getNode();
-
-        temp = temp->Child[current_bit];
-    }
-
-    // store value at leafNode
-    temp->value = key;
-}
-
-// Returns minimum XOR value of an integer inserted
-// in Trie and given key.
-int minXORUtil(TrieNode *root, int key)
-{
-    TrieNode *temp = root;
-
-    for (int i = INT_SIZE - 1; i >= 0; i--)
-    {
-        // Find current bit in given prefix
-        bool current_bit = (key & (1 << i));
-
-        // Traversal Trie, look for prefix that has
-        // same bit
-        if (temp->Child[current_bit] != NULL)
-            temp = temp->Child[current_bit];
-
-        // if there is no same bit.then looking for
-        // opposite bit
-        else if (temp->Child[1 - current_bit] != NULL)
-            temp = temp->Child[1 - current_bit];
-    }
-
-    // return xor value of minimum bit difference value
-    // so we get minimum xor value
-    return key ^ temp->value;
-}
-
-// Returns minimum xor value of pair in arr[0..n-1]
+vector<vector<int> > v;
 int minXOR(vector<int> &arr, int n)
 {
-    int min_xor = INT_MAX; // Initialize result
+    // Sort given array
+    sort(arr.begin(), arr.end());
 
-    // create a True and insert first element in it
-    TrieNode *root = getNode();
-    insert(root, arr[0]);
+    int minXor = INT_MAX;
+    int val = 0;
 
-    // Traverse all array element and find minimum xor
-    // for every element
-    for (int i = 1; i < n; i++)
+    // calculate min xor of consecutive pairs
+    for (int i = 0; i < n - 1; i++)
     {
-        // Find minimum XOR value of current element with
-        // previous elements inserted in Trie
-        min_xor = min(min_xor, minXORUtil(root, arr[i]));
-
-        // insert current array value into Trie
-        insert(root, arr[i]);
+        val = arr[i] ^ arr[i + 1];
+        minXor = min(minXor, val);
     }
-    return min_xor;
-}
 
+    return minXor;
+}
 void dfs(int v, int par = -1)
 {
-    subtree[v].push_back(v1[v]);
-    // int max = 1e16;
+    subtree[v].push_back(v);
     for (auto child : g[v])
     {
         if (child == par)
             continue;
         dfs(child, v);
-        // subtree[v].push_back(v1[child]);
-        // max = min(max, v1[v] ^ v1[child]);
+        subtree[v].push_back(child);
         for (auto i : subtree[child])
         {
             if (i == child)
                 continue;
-            // ex[v] = min(max, v1[v] ^ v1[i]);
             subtree[v].push_back(i);
         }
     }
-    // ex[v] = max;
 }
 void solve()
 {
@@ -124,6 +50,7 @@ void solve()
     g.resize(n + 1);
     v1.resize(n + 1);
     subtree.resize(n + 1);
+    v.resize(n + 1);
 
     for (int i = 1; i <= n - 1; i++)
     {
@@ -140,21 +67,19 @@ void solve()
     for (int i = 0; i < subtree.size(); i++)
     {
         for (int j = 0; j < subtree[i].size(); j++)
-            cout << subtree[i][j] << " ";
-        cout << endl;
+            v[i].push_back(v1[subtree[i][j]]);
     }
-    // for (int i = 1; i < subtree.size(); i++)
-    // {
-    //     if (subtree[i].size() == 1)
-    //         cout << -1 << " ";
+    for (int i = 1; i < v.size(); i++)
+    {
+        if (v[i].size() == 1)
+            cout << -1 << " ";
+        else
+        {
 
-    //     else
-    //     {
-    //         int max = 1e15;
-
-    //         cout << minXOR(subtree[i], subtree[i].size()) << " ";
-    //     }
-    // }
+            cout << minXOR(v[i], v[i].size()) << " ";
+        }
+    }
+    cout << endl;
 }
 int32_t main()
 {
