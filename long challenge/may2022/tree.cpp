@@ -1,44 +1,40 @@
+// not able to solve will try it later
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define INT_SIZE 32;
 vector<vector<int> > g;
 vector<int> v1;
-vector<vector<int> > subtree;
-vector<vector<int> > v;
-int minXOR(vector<int> &arr, int n)
+vector<int> subtree;
+vector<int> res;
+vector<multiset<long long> > values;
+int dfs(int v, int par = -1)
 {
-    // Sort given array
-    sort(arr.begin(), arr.end());
-
-    int minXor = INT_MAX;
-    int val = 0;
-
-    // calculate min xor of consecutive pairs
-    for (int i = 0; i < n - 1; i++)
-    {
-        val = arr[i] ^ arr[i + 1];
-        minXor = min(minXor, val);
-    }
-
-    return minXor;
-}
-void dfs(int v, int par = -1)
-{
-    subtree[v].push_back(v);
+    int c = 1;
     for (auto child : g[v])
     {
         if (child == par)
             continue;
-        dfs(child, v);
-        subtree[v].push_back(child);
-        for (auto i : subtree[child])
-        {
-            if (i == child)
-                continue;
-            subtree[v].push_back(i);
-        }
+        int ans = dfs(child, v);
+        subtree[v] += ans + subtree[child];
     }
+    return c;
+}
+void dfs2(int v, int par = -1)
+{
+    int max_sz = -1, big_child = -1;
+    for (auto &child : g[v])
+    {
+        if (child == par)
+            continue;
+        if (subtree[child] > max_sz)
+            max_sz = subtree[v], big_child = child;
+        dfs2(child, v);
+        res[v] = min(res[child], res[v]);
+    }
+    if (big_child != -1)
+        swap(values[v], values[big_child]);
+    multiset<long long> &cur = values[v];
+    auto iter = cur.lower_bound(v1[v]);
 }
 void solve()
 {
@@ -49,8 +45,9 @@ void solve()
     subtree.clear();
     g.resize(n + 1);
     v1.resize(n + 1);
-    subtree.resize(n + 1);
-    v.resize(n + 1);
+    subtree.assign(n + 1, 0);
+    res.assign(n + 1, 1e15);
+    values.resize(n + 1);
 
     for (int i = 1; i <= n - 1; i++)
     {
@@ -59,27 +56,34 @@ void solve()
         g[u].push_back(v);
         g[v].push_back(u);
     }
+
     for (int i = 1; i <= n; i++)
     {
         cin >> v1[i];
     }
     dfs(1);
-    for (int i = 0; i < subtree.size(); i++)
+    for (int i = 1; i < subtree.size(); i++)
     {
-        for (int j = 0; j < subtree[i].size(); j++)
-            v[i].push_back(v1[subtree[i][j]]);
-    }
-    for (int i = 1; i < v.size(); i++)
-    {
-        if (v[i].size() == 1)
-            cout << -1 << " ";
-        else
-        {
-
-            cout << minXOR(v[i], v[i].size()) << " ";
-        }
+        // for (int j = 0; j < subtree[i].size(); j++)
+        cout << subtree[i] << " ";
     }
     cout << endl;
+    // for (int i = 0; i < subtree.size(); i++)
+    // {
+    //     for (int j = 0; j < subtree[i].size(); j++)
+    //         cout << subtree[i][j] << " ";
+    //     cout << endl;
+    // }
+    // for (int i = 1; i < subtree.size(); i++)
+    // {
+    //     if (subtree.size() == 1)
+    //         cout << -1 << " ";
+    //     else
+    //     {
+    //         // cout << (v1[subtree[i][0]] ^ v1[subtree[i][1]]) << " ";
+    //         // cout << (v1[i][0] ^ v1[i][1]) << " ";
+    //     }
+    // }
 }
 int32_t main()
 {
