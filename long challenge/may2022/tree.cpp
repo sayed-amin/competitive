@@ -2,39 +2,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-vector<vector<int> > g;
+#define sz(x) int((x).size())
+vector<vector<int>> g;
 vector<int> v1;
-vector<int> subtree;
+vector<set<int>> subtree;
 vector<int> res;
-vector<multiset<long long> > values;
-int dfs(int v, int par = -1)
+const int inf = 1e17;
+void dfs(int v, int par = -1)
 {
-    int c = 1;
-    for (auto child : g[v])
+    res[v] = inf;
+    subtree[v].insert(v1[v]);
+    for (int child : g[v])
     {
         if (child == par)
             continue;
-        int ans = dfs(child, v);
-        subtree[v] += ans + subtree[child];
+        dfs(child, v);
+        res[v] = min(res[v], res[child]);
+        if ((int)subtree[v].size() < (int)subtree[child].size())
+            swap(subtree[v], subtree[child]);
+
+        for (auto &e : subtree[child])
+        {
+            auto it = subtree[v].lower_bound(e);
+
+            if (it != subtree[v].end())
+            {
+                res[v] = min(res[v], e ^ *it);
+            }
+            if (it != subtree[v].begin())
+            {
+                --it;
+                res[v] = min(res[v], e ^ *it);
+            }
+            subtree[v].insert(e);
+        }
+        subtree[child].clear();
     }
-    return c;
-}
-void dfs2(int v, int par = -1)
-{
-    int max_sz = -1, big_child = -1;
-    for (auto &child : g[v])
-    {
-        if (child == par)
-            continue;
-        if (subtree[child] > max_sz)
-            max_sz = subtree[v], big_child = child;
-        dfs2(child, v);
-        res[v] = min(res[child], res[v]);
-    }
-    if (big_child != -1)
-        swap(values[v], values[big_child]);
-    multiset<long long> &cur = values[v];
-    auto iter = cur.lower_bound(v1[v]);
 }
 void solve()
 {
@@ -45,9 +48,8 @@ void solve()
     subtree.clear();
     g.resize(n + 1);
     v1.resize(n + 1);
-    subtree.assign(n + 1, 0);
-    res.assign(n + 1, 1e15);
-    values.resize(n + 1);
+    subtree.resize(n + 1);
+    res.resize(n + 1);
 
     for (int i = 1; i <= n - 1; i++)
     {
@@ -62,28 +64,13 @@ void solve()
         cin >> v1[i];
     }
     dfs(1);
-    for (int i = 1; i < subtree.size(); i++)
+    for (int i = 1; i <= n; ++i)
     {
-        // for (int j = 0; j < subtree[i].size(); j++)
-        cout << subtree[i] << " ";
+        if (res[i] == inf)
+            res[i] = -1;
+        cout << res[i] << ' ';
     }
-    cout << endl;
-    // for (int i = 0; i < subtree.size(); i++)
-    // {
-    //     for (int j = 0; j < subtree[i].size(); j++)
-    //         cout << subtree[i][j] << " ";
-    //     cout << endl;
-    // }
-    // for (int i = 1; i < subtree.size(); i++)
-    // {
-    //     if (subtree.size() == 1)
-    //         cout << -1 << " ";
-    //     else
-    //     {
-    //         // cout << (v1[subtree[i][0]] ^ v1[subtree[i][1]]) << " ";
-    //         // cout << (v1[i][0] ^ v1[i][1]) << " ";
-    //     }
-    // }
+    cout << '\n';
 }
 int32_t main()
 {

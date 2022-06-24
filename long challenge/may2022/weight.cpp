@@ -3,6 +3,11 @@ using namespace std;
 #define int long long
 int maxSum(vector<int> &arr, int n, int k)
 {
+    for (auto i : arr)
+    {
+        cout << i << endl;
+    }
+
     int ans = 0;
     map<int, int> sor;
     for (int i = 0; i < k; i++)
