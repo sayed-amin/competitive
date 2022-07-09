@@ -15,22 +15,40 @@ void solve()
     cin >> n >> m;
     vector<int> row(m + 1);
     vector<int> additon(m + 1);
-    for (int i = 1; i <= m; i++)
+    if (n < m)
     {
-        row[i] = i;
-        if (i == 1)
-            additon[i] = 2;
-        if (i > 1)
-            additon[i] = additon[i - 1] + 2;
-    }
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++)
-        {
-            cout << row[j] << " ";
-            row[j] += additon[j];
-        }
+        for (int i = 0; i < m; i++)
+            cout << i + 1 << " ";
         cout << endl;
+        int add = n + 2;
+        for (int i = 1; i < n; i++)
+        {
+            int temp = add;
+            cout << temp << " ";
+            for (int j = 1; j < m; j++)
+            {
+                temp += i + 1;
+                cout << temp << " ";
+            }
+            add += n + 1;
+            cout << endl;
+        }
+    }
+    else
+    {
+        int add = m + 1;
+        int sum;
+        for (int i = 0; i < n; i++, add++)
+        {
+            int sum = i + 1;
+            cout << sum << " ";
+            for (int j = 1; j < m; j++)
+            {
+                sum += add;
+                cout << sum << " ";
+            }
+            cout << endl;
+        }
     }
 }
 int32_t main()
