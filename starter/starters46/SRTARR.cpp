@@ -1,8 +1,8 @@
 /*
-Untitled-1.cpp
-26 June 2022
-Sun 23:03
-
+SRTARR.cpp
+08 July 2022
+Fri 06:31
+binary string
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,10 +10,17 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-    int n = 1e10 + 1;
-    int m = 1e10;
-    int t = 1e5 + 1;
-    cout << (m % n) % t << endl;
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int ans = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (s[i] == '1' and s[i + 1] == '0')
+            ans++;
+    }
+    cout << ans << endl;
 }
 int32_t main()
 {

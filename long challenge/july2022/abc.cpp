@@ -1,7 +1,7 @@
 /*
-Untitled-1.cpp
-26 June 2022
-Sun 23:03
+abc.cpp
+08 July 2022
+Fri 15:14
 
 */
 #include <bits/stdc++.h>
@@ -10,10 +10,12 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-    int n = 1e10 + 1;
-    int m = 1e10;
-    int t = 1e5 + 1;
-    cout << (m % n) % t << endl;
+    int n, x;
+    cin >> n >> x;
+    if (x >= n)
+        cout << 0 << endl;
+    else
+        cout << ceil((n - x) / 4.0) << endl;
 }
 int32_t main()
 {

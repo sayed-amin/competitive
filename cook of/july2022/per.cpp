@@ -1,7 +1,7 @@
 /*
-Untitled-1.cpp
-26 June 2022
-Sun 23:03
+per.cpp
+03 July 2022
+Sun 22:01
 
 */
 #include <bits/stdc++.h>
@@ -10,10 +10,18 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-    int n = 1e10 + 1;
-    int m = 1e10;
-    int t = 1e5 + 1;
-    cout << (m % n) % t << endl;
+    int n;
+    cin >> n;
+    int x = n;
+    int miin = 1;
+    for (int i = 0; i < n; i++)
+    {
+        if (i % 2 == 0)
+            cout << x-- << " ";
+        else
+            cout << miin++ << " ";
+    }
+    cout << endl;
 }
 int32_t main()
 {

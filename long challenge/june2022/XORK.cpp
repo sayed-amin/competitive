@@ -15,30 +15,44 @@ void solve()
     int k;
     cin >> k;
     int miin = 1e15;
-    int kth_bit = log2(k) + 1;
-    vector<int> a(n), bit(n); 
+    vector<int> pre(n, 0), suff(n, 0), a(n, 0);
     for (int i = 0; i < n; i++)
     {
         cin >> a[i];
+        if (i == 0)
+        {
+            pre[i] = a[i];
+        }
+        if (i > 0)
+            pre[i] = pre[i - 1] ^ a[i];
+        // cout << pre[i] << " ";
         if (a[i] >= k)
         {
-            cout << 1 << endl;
-            return;
+            miin = min(miin, 1ll);
         }
-        bit[i] = log2(a[i]) + 1;
     }
-    int flag = 1;
+    // cout << endl;
+    suff[n - 1] = a[n - 1];
+    // cout << suff[n - 1] << " ";
+    for (int i = n - 2; i >= 0; i--)
+    {
+        suff[i] = suff[i + 1] ^ a[i];
+        //  cout << suff[i] << " ";
+    }
+    int ans = 0;
+    // cout << endl;
     for (int i = 0; i < n; i++)
     {
-        if (kth_bit > bit[i])
+
+        if (pre[i] >= k)
         {
-            flag = 0;
-            break;
+            miin = min(miin, (i + 1));
         }
+        if (suff[i] >= k)
+            miin = min(miin, (n - i));
     }
-    if (flag)
-    {
-    }
+    if (miin != 1e15)
+        cout << miin << endl;
     else
         cout << -1 << endl;
 }

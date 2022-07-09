@@ -1,7 +1,7 @@
 /*
-Untitled-1.cpp
-26 June 2022
-Sun 23:03
+LARSQR31.cpp
+08 July 2022
+Fri 23:25
 
 */
 #include <bits/stdc++.h>
@@ -10,10 +10,12 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-    int n = 1e10 + 1;
-    int m = 1e10;
-    int t = 1e5 + 1;
-    cout << (m % n) % t << endl;
+    int n;
+    cin >> n;
+    vector<vector<int>> grid(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+    {
+    }
 }
 int32_t main()
 {
@@ -21,7 +23,7 @@ int32_t main()
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
         solve();

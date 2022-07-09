@@ -1,8 +1,8 @@
 /*
-Untitled-1.cpp
-26 June 2022
-Sun 23:03
-
+ARRSORT.cpp
+08 July 2022
+Fri 13:11
+array sorting and gcd
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,10 +10,16 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-    int n = 1e10 + 1;
-    int m = 1e10;
-    int t = 1e5 + 1;
-    cout << (m % n) % t << endl;
+    int n;
+    cin >> n;
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        ans = gcd(ans, abs(x - i));
+    }
+    cout << ans << endl;
 }
 int32_t main()
 {
